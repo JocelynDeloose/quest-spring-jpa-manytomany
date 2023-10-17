@@ -1,9 +1,9 @@
 package com.wildcodeschool.wildandwizard.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Course {
@@ -13,8 +13,24 @@ public class Course {
     private Long id;
     private String name;
 
+    @OneToMany(mappedBy = "course")
+    private List<Wizard> wizards = new ArrayList<>();
+
+
+    public List<Wizard> getWizard() {
+        return wizards;
+    }
+
+    public void setWizard(List<Wizard> wizard) {
+        this.wizards = wizard;
+    }
+
     public Course() {
     }
+
+
+
+
 
     public Course(String name) {
         this.name = name;
@@ -34,5 +50,16 @@ public class Course {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @OneToMany(mappedBy = "courses")
+    private Collection<Wizard_Course> wizardCourse;
+
+    public Collection<Wizard_Course> getWizardCourse() {
+        return wizardCourse;
+    }
+
+    public void setWizardCourse(Collection<Wizard_Course> wizardCourse) {
+        this.wizardCourse = wizardCourse;
     }
 }
